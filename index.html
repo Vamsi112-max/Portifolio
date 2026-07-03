@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vamsi Inampudi — Software & AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0B0E14;
+    --panel: #12161F;
+    --panel-2: #161B26;
+    --border: #232A38;
+    --text: #E7EAF0;
+    --muted: #8B93A7;
+    --amber: #FFB454;
+    --green: #5FD98A;
+    --blue: #6FA8FF;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  body::before{
+    content:'';
+    position: fixed; inset:0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.05;
+    pointer-events: none;
+    z-index: 0;
+  }
+  a{ color: inherit; text-decoration: none; }
+  .wrap{ max-width: 1080px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+  ::selection{ background: var(--amber); color: #0B0E14; }
+
+  a:focus-visible, button:focus-visible{ outline: 2px solid var(--amber); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    backdrop-filter: blur(10px);
+    background: rgba(11,14,20,0.75);
+    border-bottom: 1px solid var(--border);
+  }
+  nav{
+    max-width: 1080px; margin: 0 auto; padding: 16px 32px;
+    display:flex; align-items:center; justify-content: space-between;
+  }
+  .logo{ font-family: var(--mono); font-weight:600; font-size: 15px; letter-spacing: 0.5px; }
+  .logo span{ color: var(--amber); }
+  .status-pill{
+    display:flex; align-items:center; gap:8px;
+    font-family: var(--mono); font-size: 11px; color: var(--green);
+    border:1px solid var(--border); padding: 5px 10px; border-radius: 100px;
+    letter-spacing: 0.5px;
+  }
+  .dot{ width:6px; height:6px; border-radius:50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
+  .navlinks{ display:flex; gap: 28px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .navlinks a:hover{ color: var(--amber); }
+  @media (max-width: 720px){ .navlinks{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height: 100vh;
+    display:flex; flex-direction: column; justify-content:center;
+    padding-top: 110px; padding-bottom: 60px;
+    position: relative;
+  }
+  .boot{
+    font-family: var(--mono); font-size: 12.5px; color: var(--muted);
+    margin-bottom: 28px; display:flex; flex-direction:column; gap: 6px;
+  }
+  .boot .line{ opacity:0; animation: typeIn 0.4s forwards; }
+  .boot .ok{ color: var(--green); }
+  .boot .line:nth-child(1){ animation-delay: 0.1s; }
+  .boot .line:nth-child(2){ animation-delay: 0.35s; }
+  .boot .line:nth-child(3){ animation-delay: 0.6s; }
+  .boot .line:nth-child(4){ animation-delay: 0.85s; }
+  @keyframes typeIn{ from{ opacity:0; transform: translateY(4px); } to{ opacity:1; transform:none; } }
+
+  .hero h1{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(38px, 6.4vw, 76px);
+    line-height: 1.04; letter-spacing: -1.5px;
+    max-width: 900px;
+    opacity: 0; animation: rise 0.6s 1s forwards;
+  }
+  .hero h1 .accent{ color: var(--amber); }
+  .hero .role{
+    margin-top: 20px; font-family: var(--mono); font-size: 15px; color: var(--blue);
+    opacity:0; animation: rise 0.6s 1.15s forwards;
+  }
+  .hero p.lede{
+    margin-top: 22px; max-width: 620px; color: var(--muted); font-size: 16.5px;
+    opacity:0; animation: rise 0.6s 1.3s forwards;
+  }
+  @keyframes rise{ from{ opacity:0; transform: translateY(14px); } to{ opacity:1; transform:none; } }
+
+  .hero-actions{ margin-top: 34px; display:flex; gap:14px; flex-wrap: wrap; opacity:0; animation: rise 0.6s 1.45s forwards; }
+  .btn{
+    font-family: var(--mono); font-size: 13px; padding: 12px 20px; border-radius: 6px;
+    border: 1px solid var(--border); transition: all 0.18s ease; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{ background: var(--amber); color: #14100A; border-color: var(--amber); font-weight:600; }
+  .btn-primary:hover{ background: #ffc478; transform: translateY(-1px); }
+  .btn-ghost:hover{ border-color: var(--amber); color: var(--amber); transform: translateY(-1px); }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding: 100px 0; border-top: 1px solid var(--border); position: relative; z-index:1; }
+  .eyebrow{
+    font-family: var(--mono); font-size: 12px; color: var(--amber);
+    letter-spacing: 1px; display:flex; align-items:center; gap:10px; margin-bottom: 14px;
+  }
+  .eyebrow::before{ content:''; width:22px; height:1px; background: var(--amber); }
+  h2.sec-title{ font-family: var(--display); font-size: clamp(26px,3.4vw,38px); font-weight:600; letter-spacing:-0.5px; margin-bottom: 40px; max-width: 700px; }
+
+  .reveal{ opacity:0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap: 48px; }
+  @media (max-width: 800px){ .about-grid{ grid-template-columns: 1fr; } }
+  .about-grid p{ color: var(--muted); font-size: 16px; margin-bottom: 16px; }
+  .about-grid strong{ color: var(--text); font-weight: 600; }
+  .stat-panel{ border:1px solid var(--border); background: var(--panel); border-radius: 10px; padding: 22px; }
+  .stat-row{ display:flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed var(--border); font-family: var(--mono); font-size: 13px; }
+  .stat-row:last-child{ border-bottom:none; }
+  .stat-row span:first-child{ color: var(--muted); }
+  .stat-row span:last-child{ color: var(--text); }
+
+  /* ---------- EXPERIENCE (process log) ---------- */
+  .log{ display:flex; flex-direction:column; }
+  .log-entry{ display:grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); }
+  .log-entry:first-child{ padding-top:0; }
+  .log-entry:last-child{ border-bottom:none; }
+  @media (max-width: 700px){ .log-entry{ grid-template-columns: 1fr; gap:8px; } }
+  .log-meta{ font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .log-meta .badge{
+    display:inline-block; margin-top:10px; font-size: 10.5px; padding: 3px 8px; border-radius: 4px;
+    border: 1px solid var(--green); color: var(--green);
+  }
+  .log-meta .badge.freelance{ border-color: var(--blue); color: var(--blue); }
+  .log-body h3{ font-family: var(--display); font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .log-body .org{ color: var(--amber); font-family: var(--mono); font-size: 13px; margin-bottom: 12px; display:block; }
+  .log-body ul{ list-style: none; color: var(--muted); font-size: 15px; }
+  .log-body li{ position: relative; padding-left: 18px; margin-bottom: 8px; }
+  .log-body li::before{ content:'›'; position:absolute; left:0; color: var(--amber); }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  @media (max-width: 800px){ .proj-grid{ grid-template-columns: 1fr; } }
+  .proj-card{
+    background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 26px;
+    display:flex; flex-direction:column; transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .proj-card:hover{ border-color: var(--amber); transform: translateY(-3px); }
+  .proj-top{ display:flex; justify-content: space-between; align-items:flex-start; margin-bottom: 12px; gap: 12px; }
+  .proj-top h3{ font-family: var(--display); font-size: 19px; font-weight:600; }
+  .proj-status{ font-family: var(--mono); font-size: 10px; padding: 3px 8px; border-radius: 100px; white-space:nowrap; height: fit-content; }
+  .proj-status.live{ color: var(--green); border: 1px solid var(--green); }
+  .proj-status.code{ color: var(--muted); border: 1px solid var(--border); }
+  .proj-card p.desc{ color: var(--muted); font-size: 14.5px; margin-bottom: 16px; flex-grow:1; }
+  .stack{ display:flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .stack span{ font-family: var(--mono); font-size: 10.5px; color: var(--blue); background: rgba(111,168,255,0.08); border: 1px solid rgba(111,168,255,0.25); padding: 3px 8px; border-radius: 4px; }
+  .proj-links{ display:flex; gap: 16px; font-family: var(--mono); font-size: 12.5px; }
+  .proj-links a{ color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+  .proj-links a:hover{ color: var(--amber); border-color: var(--amber); }
+
+  /* ---------- SKILLS (modules) ---------- */
+  .modules{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 18px; }
+  .module{ background: var(--panel-2); border:1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .module h4{ font-family: var(--mono); font-size: 11.5px; color: var(--amber); letter-spacing: 0.5px; margin-bottom: 14px; text-transform: uppercase; }
+  .tag-list{ display:flex; flex-wrap: wrap; gap: 7px; }
+  .tag-list span{ font-family: var(--mono); font-size: 12px; color: var(--muted); border: 1px solid var(--border); padding: 4px 9px; border-radius: 5px; }
+
+  /* ---------- ACHIEVEMENTS ---------- */
+  .ach-list{ display:flex; flex-direction: column; gap: 0; }
+  .ach-item{ display:flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); align-items:baseline; }
+  .ach-item:last-child{ border-bottom: none; }
+  .ach-tag{ font-family: var(--mono); font-size: 11px; color: var(--green); border:1px solid var(--green); padding: 2px 8px; border-radius: 4px; white-space:nowrap; }
+  .ach-tag.pos2{ color: var(--amber); border-color: var(--amber); }
+  .ach-tag.pos3{ color: var(--blue); border-color: var(--blue); }
+  .ach-item p{ color: var(--muted); font-size: 14.5px; }
+  .ach-item strong{ color: var(--text); }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{ padding: 90px 0 50px; border-top: 1px solid var(--border); text-align:center; }
+  footer h2{ font-family: var(--display); font-size: clamp(30px, 5vw, 52px); font-weight:700; letter-spacing:-1px; margin-bottom: 18px; }
+  footer h2 span{ color: var(--amber); }
+  footer p{ color: var(--muted); margin-bottom: 34px; }
+  .contact-links{ display:flex; justify-content:center; gap: 16px; flex-wrap: wrap; margin-bottom: 60px; }
+  .footer-meta{ font-family: var(--mono); font-size: 11.5px; color: var(--muted); opacity:0.7; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="logo">IV<span>_</span>DVKR</div>
+    <div class="navlinks">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </div>
+    <div class="status-pill"><span class="dot"></span>AVAILABLE FOR HIRE</div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="boot">
+      <div class="line">$ whoami</div>
+      <div class="line">&gt; Inampudi Durga Vamsi Krishnam Raju</div>
+      <div class="line">$ status --check</div>
+      <div class="line ok">&gt; 5 systems deployed · 0 incidents · ready to ship</div>
+    </div>
+    <h1>I build software that <span class="accent">watches, thinks,</span> and gets the job done.</h1>
+    <div class="role">FULL-STACK DEVELOPER // AI-ML ENGINEER // FINAL-YEAR CSE, 2027</div>
+    <p class="lede">Chennai-based engineer who ships full-stack products and agentic AI systems end to end — from database schema to deployed dashboard. Freelance-built, internship-tested, hackathon-sharpened.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projects">View projects →</a>
+      <a class="btn btn-ghost" href="mailto:vamsiinampudi01@gmail.com">Get in touch</a>
+      <a class="btn btn-ghost" href="https://github.com/Vamsi112-max" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">01 / ABOUT</div>
+    <h2 class="sec-title reveal">Fundamentals first, then automate everything else.</h2>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>I'm a final-year <strong>B.Tech Computer Science</strong> student at Vel Tech Rangarajan Dr. Sagunthala R&D Institute of Science and Technology, Chennai — graduating 2027 with an <strong>8.37 CGPA</strong>.</p>
+        <p>Most of what I know, I learned by shipping: freelance full-stack apps built solo from requirements to deployment, an AI internship building enterprise tools used by real teams, and a growing list of agentic AI systems I designed myself — including a platform with 5 coordinated AI agents automating infrastructure operations.</p>
+        <p>I'm looking for a team where I can pair that hands-on range with engineers who've done it longer — and help ship things that matter.</p>
+      </div>
+      <div class="stat-panel reveal">
+        <div class="stat-row"><span>ROLE</span><span>Software / Full-Stack / AI-ML</span></div>
+        <div class="stat-row"><span>LOCATION</span><span>Chennai, India</span></div>
+        <div class="stat-row"><span>EDUCATION</span><span>B.Tech CSE · 2023–2027</span></div>
+        <div class="stat-row"><span>CGPA</span><span>8.37 / 10</span></div>
+        <div class="stat-row"><span>PROJECTS SHIPPED</span><span>5+</span></div>
+        <div class="stat-row"><span>CONTACT</span><span>+91 99633 72857</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow">02 / EXPERIENCE</div>
+    <h2 class="sec-title reveal">Where I've put this to work.</h2>
+    <div class="log">
+      <div class="log-entry reveal">
+        <div class="log-meta">JUN 2025 – OCT 2025<br><span class="badge">INTERNSHIP</span></div>
+        <div class="log-body">
+          <h3>AI Developer Intern</h3>
+          <span class="org">Seventh Horse Agri-Tech Pvt. Ltd. (MATIC) — Chennai</span>
+          <ul>
+            <li>Built a GenAI-based task management system and an OCR-powered expense analytics platform to automate workflow and financial tracking.</li>
+            <li>Shipped a conversational AI assistant using LLMs, prompt engineering, REST APIs, and SQL, plus a Java/MySQL OCR pipeline for invoice scanning and real-time reporting.</li>
+            <li>Worked inside Agile sprint reviews, using Git and REST API integration to deliver maintainable AI-driven solutions with the dev team.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="log-entry reveal">
+        <div class="log-meta">JAN 2025 – PRESENT<br><span class="badge freelance">FREELANCE</span></div>
+        <div class="log-body">
+          <h3>Independent Full-Stack Developer</h3>
+          <span class="org">Freelance</span>
+          <ul>
+            <li>Delivered 2+ full-stack web apps solo — owning requirements, system design, React front-ends, REST APIs, MySQL schema design, and deployment across the full SDLC.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow">03 / PROJECTS</div>
+    <h2 class="sec-title reveal">Things I've designed, built, and deployed.</h2>
+    <div class="proj-grid">
+
+      <div class="proj-card reveal">
+        <div class="proj-top">
+          <h3>OmniRoot Agentic AI</h3>
+          <span class="proj-status live">LIVE</span>
+        </div>
+        <p class="desc">An enterprise AIOps platform with 5 specialized AI agents and 8 intelligence layers, automating infrastructure monitoring, incident detection, root-cause analysis, and remediation through an 18-node n8n workflow.</p>
+        <div class="stack"><span>Python</span><span>OpenAI API</span><span>n8n</span><span>SQL</span><span>Docker</span><span>FastAPI</span></div>
+        <div class="proj-links">
+          <a href="https://omniroot-agentic-ai.vercel.app" target="_blank" rel="noopener">Live demo</a>
+          <a href="https://github.com/Vamsi112-max/OmniRoot-AI" target="_blank" rel="noopener">Source</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-top">
+          <h3>AtomSphere Nexus</h3>
+          <span class="proj-status live">LIVE</span>
+        </div>
+        <p class="desc">A multi-role SaaS platform for goal tracking, KPI evaluation, and performance reviews, with role-based dashboards for employees, managers, and admins, real-time sync, and automated PDF/Excel reporting.</p>
+        <div class="stack"><span>React.js</span><span>Supabase</span><span>SQL</span><span>REST API</span></div>
+        <div class="proj-links">
+          <a href="https://atom-sphere-nexus.vercel.app" target="_blank" rel="noopener">Live demo</a>
+          <a href="https://github.com/Vamsi112-max/AtomSphere-Nexus" target="_blank" rel="noopener">Source</a>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-top">
+          <h3>GenAI Task Management Assistant</h3>
+          <span class="proj-status code">INTERNAL BUILD</span>
+        </div>
+        <p class="desc">An AI-powered enterprise platform for task assignment, workflow automation, and approvals, driven by a conversational assistant that understands natural-language requests and generates reports on demand.</p>
+        <div class="stack"><span>Python</span><span>LLM</span><span>Prompt Engineering</span><span>REST API</span><span>SQL</span></div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-top">
+          <h3>TrackWise — Expense Analytics</h3>
+          <span class="proj-status code">INTERNAL BUILD</span>
+        </div>
+        <p class="desc">An OCR-driven financial analytics platform that scans invoices, categorizes transactions, and generates dashboards covering income, expenses, vendor trends, and profit/loss.</p>
+        <div class="stack"><span>Java</span><span>C++</span><span>MySQL</span><span>OCR</span><span>REST API</span></div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-top">
+          <h3>IoT Smart Agriculture System</h3>
+          <span class="proj-status code">HARDWARE + CLOUD</span>
+        </div>
+        <p class="desc">A sensor-driven crop monitoring platform tracking soil moisture, NPK nutrients, humidity, and rainfall, with automated irrigation control and real-time alerts for remote farm management.</p>
+        <div class="stack"><span>Python</span><span>Raspberry Pi</span><span>REST API</span><span>Cloud</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow">04 / STACK</div>
+    <h2 class="sec-title reveal">What I build with.</h2>
+    <div class="modules">
+      <div class="module reveal">
+        <h4>Languages</h4>
+        <div class="tag-list"><span>C</span><span>Python</span><span>Java</span><span>SQL</span></div>
+      </div>
+      <div class="module reveal">
+        <h4>Web & Data</h4>
+        <div class="tag-list"><span>React.js</span><span>HTML</span><span>Tailwind CSS</span><span>REST APIs</span><span>MySQL</span><span>MongoDB</span></div>
+      </div>
+      <div class="module reveal">
+        <h4>AI & Cloud</h4>
+        <div class="tag-list"><span>OpenAI API</span><span>LLM Integration</span><span>Prompt Engineering</span><span>Agentic AI</span><span>Docker</span><span>n8n</span><span>AWS (basics)</span><span>GCP (basics)</span></div>
+      </div>
+      <div class="module reveal">
+        <h4>Foundations</h4>
+        <div class="tag-list"><span>DSA</span><span>OOP</span><span>DBMS</span><span>Operating Systems</span><span>Computer Networks</span><span>SDLC</span><span>NLP</span></div>
+      </div>
+      <div class="module reveal">
+        <h4>Tools & Practice</h4>
+        <div class="tag-list"><span>Git</span><span>GitHub</span><span>Figma</span><span>Canva</span><span>Agile</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="achievements">
+  <div class="wrap">
+    <div class="eyebrow">05 / RECOGNITION</div>
+    <h2 class="sec-title reveal">Hackathons, leadership, and a few wins.</h2>
+    <div class="ach-list">
+      <div class="ach-item reveal"><span class="ach-tag pos2">2ND PLACE</span><p><strong>Smart India Hackathon (SIH)</strong> — University level</p></div>
+      <div class="ach-item reveal"><span class="ach-tag pos3">3RD PLACE</span><p><strong>IIITDM Innovation Bootcamp</strong> — Cybersecurity Challenge</p></div>
+      <div class="ach-item reveal"><span class="ach-tag">LEAD</span><p><strong>Registration & Onboarding Lead</strong> — Yantriksha X Hub, Vel Tech University</p></div>
+      <div class="ach-item reveal"><span class="ach-tag">LEAD</span><p><strong>Creative Design & Visuals Head</strong> — Just Between Us Town Hall</p></div>
+      <div class="ach-item reveal"><span class="ach-tag">DELEGATE</span><p>Represented and coordinated at <strong>EDII</strong> for the Tamil Nadu Government funding program</p></div>
+      <div class="ach-item reveal"><span class="ach-tag">PARTICIPANT</span><p>Amazon HackOn 6.0 · AtomQuest 2026 · Google Gemini Write-off · Agentic AI Hackathon · IndustrIAI 24-Hour Hackathon · Aurigo · Infosys</p></div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center;">06 / CONTACT</div>
+    <h2>Let's build the <span>next</span> thing.</h2>
+    <p>Open to Software Engineer, Full-Stack Developer, and AI/ML Engineer roles.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="mailto:vamsiinampudi01@gmail.com">vamsiinampudi01@gmail.com</a>
+      <a class="btn btn-ghost" href="tel:+919963372857">+91 99633 72857</a>
+      <a class="btn btn-ghost" href="https://linkedin.com/in/inampudi-vamsi" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn btn-ghost" href="https://github.com/Vamsi112-max" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="footer-meta">© 2026 Inampudi Durga Vamsi Krishnam Raju · built with intent, no framework required</div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+</script>
+
+</body>
+</html>
